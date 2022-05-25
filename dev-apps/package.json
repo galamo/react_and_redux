@@ -1,0 +1,13 @@
+{
+  "name": "dev-apps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install_globals": "npm install -g typescript -g nodemon -g concurrently",
+    "install_react_cli": "npm i create-react-app -g"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

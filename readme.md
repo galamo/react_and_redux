@@ -1,5 +1,10 @@
 # React And Redux
 
+#### Before we start
+1. check your node version run `node -v`
+2. check your npm version run `npm -v`
+
+
 ## Async programing
 
 - Callback
@@ -16,6 +21,7 @@
 - `npm install nodemon -g`
 `    "_run-all": "concurrently -k -p \"[{name}]\" -n \"TypescriptCompiler,application\" -c \"red.bold,yellow.bold,\" \"npm run build_watch\" \"npm run dev\"",
 `
+
 
 
 
