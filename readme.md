@@ -36,6 +36,8 @@ Creating typescript app
 
 ### Api
 
+- External : https://restcountries.com/
+
 1. navigate to the `api` directory
 2. make sure docker-desktop is running
 3. run `docker-compose up`
