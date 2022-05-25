@@ -22,6 +22,10 @@
 `    "_run-all": "concurrently -k -p \"[{name}]\" -n \"TypescriptCompiler,application\" -c \"red.bold,yellow.bold,\" \"npm run build_watch\" \"npm run dev\"",
 `
 
+### React
+
+Creating typescript app
+`npx create-react-app vacations --template typescript`
 
 
 
