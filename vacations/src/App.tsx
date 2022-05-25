@@ -3,7 +3,7 @@ import { CountriesPage } from "./components/pages/countries";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <CountriesPage />
     </div>
   );
