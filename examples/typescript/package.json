@@ -1,0 +1,13 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./dist/index.js",
+    "start-compiler": "tsc --watch",
+    "run-all": "concurrently -k -p \"[{name}]\" -n \"TypescriptCompiler,application\" -c \"red.bold,blue.bold,\" \"npm run start-compiler\" \"npm start\""
+  },
+  "author": "",
+  "license": "ISC"
+}
