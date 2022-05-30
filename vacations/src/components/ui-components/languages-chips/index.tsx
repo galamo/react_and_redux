@@ -8,6 +8,12 @@ interface ILanguagesChips {
 export function LanguagesChips(props: ILanguagesChips): any {
   if (!Array.isArray(props.languages)) return;
   return props.languages.map((language: string) => {
-    return <Chip label={language || "Not availble"} variant="outlined" />;
+    return (
+      <Chip
+        key={language}
+        label={language || "Not availble"}
+        variant="outlined"
+      />
+    );
   });
 }
