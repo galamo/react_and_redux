@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 import { useContext } from "react";
 import { DateContext } from "../../../App";
@@ -8,9 +9,21 @@ interface IAppdate {
 
 export default function AppDate(props: IAppdate) {
   const { date } = props;
-  const dateContextIsUtc = useContext(DateContext);
+  const {
+    isUtc: dateContextIsUtc,
+    dateFormat,
+    setisUtc,
+  } = useContext(DateContext);
   const currentDate = dateContextIsUtc
-    ? new Date(date).toISOString()
-    : new Date(date).toString();
-  return <span>{currentDate}</span>;
+    ? moment(date).utc().format(dateFormat)
+    : moment(date).format(dateFormat);
+  return (
+    <span
+      onDoubleClick={() => {
+        typeof setisUtc === "function" && setisUtc(!dateContextIsUtc);
+      }}
+    >
+      {currentDate}
+    </span>
+  );
 }
