@@ -1,26 +1,29 @@
 import React, { createContext, useState } from "react";
+import Switch from "@mui/material/Switch";
+
 import "./App.css";
 import { CountriesPage } from "./components/pages/countries";
 
 // @ts-ignore
 export const DateContext = createContext();
-// @ts-ignore
-export const KaramContext = createContext();
-// @ts-ignore
-export const SubhiContext = createContext();
 
 function App() {
-  const [isUtc, setisUtc] = useState(false);
+  const [isUtc, setisUtc] = useState(true);
 
   return (
     <DateContext.Provider value={isUtc}>
-      <KaramContext.Provider value={"Tira"}>
-        <SubhiContext.Provider value={"Tsur itshak"}>
-          <div>
-            <CountriesPage />
-          </div>
-        </SubhiContext.Provider>
-      </KaramContext.Provider>
+      <div>
+        <div style={{ backgroundColor: "rgba(235,125,144,0.5)" }}>
+          is UTC
+          <Switch
+            checked={isUtc}
+            onChange={(_, checked) => {
+              setisUtc(!isUtc);
+            }}
+          />
+        </div>
+        <CountriesPage />
+      </div>
     </DateContext.Provider>
   );
 }

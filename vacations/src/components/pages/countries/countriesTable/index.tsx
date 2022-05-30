@@ -10,17 +10,15 @@ import { ICountry } from "..";
 import { Flag } from "../../../ui-components/flag";
 import { LanguagesChips } from "../../../ui-components/languages-chips";
 import { DateContext } from "../../../../App";
+import AppDate from "../../../app/appDate";
 
 interface ICountries {
   countries: Array<ICountry>;
 }
 
 export function CountriesTable(props: ICountries) {
-  const dateContext = useContext(DateContext);
-  console.log(
-    dateContext,
-    "in CountriesTable Component - without drill anr prop"
-  );
+  const dateContextIsUtc = useContext(DateContext);
+
   const { countries } = props;
   if (!countries.length) return <div>No Data</div>;
   const singleCountry = countries[0];
@@ -58,13 +56,10 @@ export function CountriesTable(props: ICountries) {
       );
     });
   };
-  const isUtc = false;
-  const dateTimeParam = isUtc
-    ? new Date().toISOString()
-    : new Date().toString();
+
   return (
     <div>
-      <span> This data is correct for: {dateTimeParam}</span>
+      <AppDate date={new Date().getTime()} />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
