@@ -9,6 +9,18 @@ export const KaramContext = createContext();
 // @ts-ignore
 export const SubhiContext = createContext();
 
+const providers = [DateContext, KaramContext, SubhiContext];
+
+function ProvidersApp() {
+  return providers.reduce((App, CurrentProvider: any) => {
+    return (
+      <CurrentProvider value={1}>
+        <App />
+      </CurrentProvider>
+    );
+  }, <App />);
+}
+
 function App() {
   const [isUtc, setisUtc] = useState(false);
 
