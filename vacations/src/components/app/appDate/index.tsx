@@ -1,7 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { useContext } from "react";
-import { DateContext } from "../../../App";
+import { ACTIONS, DateContext } from "../../../App";
 
 interface IAppdate {
   date: number;
@@ -12,7 +12,7 @@ export default function AppDate(props: IAppdate) {
   const {
     isUtc: dateContextIsUtc,
     dateFormat,
-    setisUtc,
+    dispatch,
   } = useContext(DateContext);
   const currentDate = dateContextIsUtc
     ? moment(date).utc().format(dateFormat)
@@ -20,7 +20,7 @@ export default function AppDate(props: IAppdate) {
   return (
     <span
       onDoubleClick={() => {
-        typeof setisUtc === "function" && setisUtc(!dateContextIsUtc);
+        typeof dispatch === "function" && dispatch({ type: ACTIONS.SET_UTC });
       }}
     >
       {currentDate}
