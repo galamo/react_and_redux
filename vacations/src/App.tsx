@@ -4,6 +4,13 @@ import Switch from "@mui/material/Switch";
 import "./App.css";
 import { CountriesPage } from "./components/pages/countries";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { VacationsPage } from "./components/pages/vacations";
+import ResponsiveAppBar, {
+  AppRoute,
+  pagesConfig,
+} from "./components/app/appBar";
+
 interface IContext {
   isUtc: boolean;
   dateFormat: string;
@@ -44,25 +51,38 @@ function App() {
   const [dateFormat, setDateFormat] = useState("dd/mm/yy hh:mm:ss");
 
   return (
-    <DateContext.Provider
-      value={{ isUtc: globalState.isUtc, dateFormat, dispatch }}
-    >
-      <div>
-        <div style={{ backgroundColor: "rgba(235,125,144,0.5)" }}>
-          is UTC
-          <Switch
-            checked={globalState.isUtc}
-            onChange={(_, checked) => {
-              dispatch({
-                type: ACTIONS.SET_UTC,
-              });
-            }}
-          />
+    <BrowserRouter>
+      <DateContext.Provider
+        value={{ isUtc: globalState.isUtc, dateFormat, dispatch }}
+      >
+        <div>
+          <ResponsiveAppBar />
+          <div style={{ backgroundColor: "rgba(235,125,144,0.5)" }}>
+            is UTC
+            <Switch
+              checked={globalState.isUtc}
+              onChange={(_, checked) => {
+                dispatch({
+                  type: ACTIONS.SET_UTC,
+                });
+              }}
+            />
+          </div>
+          <Routes>
+            {pagesConfig.map((route: AppRoute) => {
+              const { label, ...restOfProps } = route;
+              return <Route {...restOfProps}></Route>;
+            })}
+          </Routes>
         </div>
-        <CountriesPage />
-      </div>
-    </DateContext.Provider>
+      </DateContext.Provider>
+    </BrowserRouter>
   );
 }
+
+const routes = [
+  <Route path="/" element={<CountriesPage />}></Route>,
+  <Route path="/vacations" element={<VacationsPage />}></Route>,
+];
 
 export default App;
