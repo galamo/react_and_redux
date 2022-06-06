@@ -56,6 +56,7 @@ function App() {
         value={{ isUtc: globalState.isUtc, dateFormat, dispatch }}
       >
         <div>
+          
           <ResponsiveAppBar />
           <div style={{ backgroundColor: "rgba(235,125,144,0.5)" }}>
             is UTC
@@ -79,10 +80,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
-const routes = [
-  <Route path="/" element={<CountriesPage />}></Route>,
-  <Route path="/vacations" element={<VacationsPage />}></Route>,
-];
 
 export default App;
