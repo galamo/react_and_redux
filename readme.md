@@ -41,3 +41,9 @@ Creating typescript app
 1. navigate to the `api` directory
 2. make sure docker-desktop is running
 3. run `docker-compose up`
+
+# Open issues:
+
+1. Lazy loading
+2. React state mem
+3. Redux
