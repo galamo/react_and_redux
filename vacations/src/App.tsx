@@ -50,13 +50,14 @@ function App() {
   // const [isUtc, setisUtc] = useState(true); => reference to local state
   const [dateFormat, setDateFormat] = useState("dd/mm/yy hh:mm:ss");
 
+
   return (
     <BrowserRouter>
       <DateContext.Provider
         value={{ isUtc: globalState.isUtc, dateFormat, dispatch }}
       >
         <div>
-          
+
           <ResponsiveAppBar />
           <div style={{ backgroundColor: "rgba(235,125,144,0.5)" }}>
             is UTC
