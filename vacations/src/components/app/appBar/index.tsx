@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { CountriesPage } from "../../pages/countries";
 import { VacationsPage } from "../../pages/vacations";
+import { SettingsPage } from "../../pages/settings";
 
 export const pagesConfig = [
   {
@@ -26,6 +27,12 @@ export const pagesConfig = [
     path: "/vacations",
     label: "Vacations",
     element: <VacationsPage />,
+  },
+  {
+    key: "settings",
+    path: "/settings",
+    label: "Settings",
+    element: <SettingsPage />,
   },
 ];
 
