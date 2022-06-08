@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { CountriesPage } from "../../pages/countries";
 import { VacationsPage } from "../../pages/vacations";
+import { SettingsPage } from "../../pages/settings";
 
 export const pagesConfig = [
   {
@@ -27,6 +28,14 @@ export const pagesConfig = [
     label: "Vacations",
     element: <VacationsPage />,
   },
+  {
+    key: "settings",
+    path: "/settings",
+    label: "Settings",
+    element: <SettingsPage />,
+  },
+
+  ,
 ];
 
 export type AppRoute = typeof pagesConfig[0];
@@ -127,15 +136,15 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pagesConfig.map((page: AppRoute) => (
               <Button
-                key={page.key}
+                key={page?.key}
                 onClick={() => {}}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 <Link
                   style={{ color: "white", textDecoration: "none" }}
-                  to={page.path}
+                  to={page?.path as string}
                 >
-                  {page.label}
+                  {page?.label}
                 </Link>
               </Button>
             ))}
