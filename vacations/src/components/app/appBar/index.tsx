@@ -10,10 +10,12 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
 import { CountriesPage } from "../../pages/countries";
 import { VacationsPage } from "../../pages/vacations";
 import { SettingsPage } from "../../pages/settings";
+import { useAppSelector } from "../../../store/hooks";
 
 export const pagesConfig = [
   {
@@ -43,6 +45,8 @@ export type AppRoute = typeof pagesConfig[0];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
+  console.log("Responsive App Header is Render");
+  const isUtc = useAppSelector((state) => state.settings.isUtc);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -178,6 +182,10 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               ))}
             </Menu>
+            <div style={{ backgroundColor: "rgba(235,125,144,0.5)" }}>
+              is UTC
+              <Switch checked={isUtc} disabled />
+            </div>
           </Box>
         </Toolbar>
       </Container>

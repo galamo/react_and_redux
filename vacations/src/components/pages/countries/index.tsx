@@ -43,6 +43,11 @@ export function CountriesPage() {
     }
     getCountries();
   }, []);
+  useEffect(() => {
+    return () => {
+      console.log("Countries Component Unmounted");
+    };
+  }, []);
 
   async function getCountriesByName(value: string) {
     try {

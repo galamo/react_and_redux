@@ -15,10 +15,14 @@ export const settingSlice = createSlice({
   initialState,
   reducers: {
     setUtc: (state: SettingState, action: PayloadAction<boolean>) => {
+      console.log(action.payload);
       state.isUtc = action.payload;
+    },
+    setDateFormat: (state: SettingState, action: PayloadAction<string>) => {
+      state.dateFormat = action.payload;
     },
   },
 });
 
-export const { setUtc } = settingSlice.actions;
+export const { setUtc, setDateFormat } = settingSlice.actions;
 export default settingSlice.reducer;

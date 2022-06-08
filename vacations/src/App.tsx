@@ -57,17 +57,7 @@ function App() {
       >
         <div>
           <ResponsiveAppBar />
-          <div style={{ backgroundColor: "rgba(235,125,144,0.5)" }}>
-            is UTC
-            <Switch
-              checked={globalState.isUtc}
-              onChange={(_, checked) => {
-                dispatch({
-                  type: ACTIONS.SET_UTC,
-                });
-              }}
-            />
-          </div>
+      
           <Routes>
             {pagesConfig.map((route: AppRoute) => {
               // @ts-ignore
