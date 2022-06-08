@@ -6,9 +6,12 @@ import css from "./style.module.css";
 import { WithLoading } from "../../ui-components/with-loading";
 import TextField from "@mui/material/TextField";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { setCountries } from "../../../store/reducers/countriesSlice";
+import {
+  getCountriesApi,
+  setCountries,
+} from "../../../store/reducers/countriesSlice";
+import { baseUrl } from "../../../store/axios.instance";
 
-const baseUrl = "https://restcountries.com/v3.1";
 const apiUrlAll = `${baseUrl}/all`;
 const apiUrlCountryName = `${baseUrl}/name/`;
 
@@ -22,32 +25,11 @@ export interface ICountry {
 export function CountriesPage() {
   const initialState: Array<ICountry> = [];
   const dispatch = useAppDispatch();
-  const countries = useAppSelector((state) => state.countries.countries);
+  const { countries, isLoading } = useAppSelector((state) => state.countries);
   const [countriesLocal, setCountriesLocal] = useState(initialState);
-  const [searchValue, setSearchValue] = useState(initialState);
+
   useEffect(() => {
-    async function getCountries() {
-      try {
-        const result = await axios.get(apiUrlAll);
-        const { data } = result;
-        const countries = data.map((c: ICountry) => {
-          return {
-            region: c.region,
-            name: c.name.common || c.name.official,
-            flags: c.flags,
-            languages: c.languages,
-          };
-        });
-        dispatch(setCountries(countries));
-        // setCountriesLocal(countries);
-      } catch (error) {
-        //TODO put nice alert
-        alert("Something went wrong");
-      }
-    }
-    getCountries();
-  }, []);
-  useEffect(() => {
+    dispatch(getCountriesApi());
     return () => {
       console.log("Countries Component Unmounted");
     };
@@ -88,9 +70,13 @@ export function CountriesPage() {
           variant="outlined"
         />
       </div>
-      <WithLoading isLoading={Boolean(!countries.length)}>
-        <CountriesTable countries={countries} />
-      </WithLoading>
+      {!countries ? (
+        <h2>Error</h2>
+      ) : (
+        <WithLoading isLoading={isLoading}>
+          <CountriesTable countries={countries} />
+        </WithLoading>
+      )}
     </div>
   );
 }
