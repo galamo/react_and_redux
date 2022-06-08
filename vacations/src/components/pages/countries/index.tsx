@@ -5,6 +5,8 @@ import axios from "axios";
 import css from "./style.module.css";
 import { WithLoading } from "../../ui-components/with-loading";
 import TextField from "@mui/material/TextField";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { setCountries } from "../../../store/reducers/countriesSlice";
 
 const baseUrl = "https://restcountries.com/v3.1";
 const apiUrlAll = `${baseUrl}/all`;
@@ -19,23 +21,25 @@ export interface ICountry {
 
 export function CountriesPage() {
   const initialState: Array<ICountry> = [];
-  const [countries, setCountries] = useState(initialState);
+  const dispatch = useAppDispatch();
+  const countries = useAppSelector((state) => state.countries.countries);
+  const [countriesLocal, setCountriesLocal] = useState(initialState);
   const [searchValue, setSearchValue] = useState(initialState);
   useEffect(() => {
     async function getCountries() {
       try {
         const result = await axios.get(apiUrlAll);
         const { data } = result;
-        setCountries(
-          data.map((c: ICountry) => {
-            return {
-              region: c.region,
-              name: c.name.common || c.name.official,
-              flags: c.flags,
-              languages: c.languages,
-            };
-          })
-        );
+        const countries = data.map((c: ICountry) => {
+          return {
+            region: c.region,
+            name: c.name.common || c.name.official,
+            flags: c.flags,
+            languages: c.languages,
+          };
+        });
+        dispatch(setCountries(countries));
+        // setCountriesLocal(countries);
       } catch (error) {
         //TODO put nice alert
         alert("Something went wrong");
@@ -53,7 +57,7 @@ export function CountriesPage() {
     try {
       const result = await axios.get(`${apiUrlCountryName}/${value}`);
       const { data } = result;
-      setCountries(
+      setCountriesLocal(
         data.map((c: ICountry) => {
           return {
             region: c.region,
