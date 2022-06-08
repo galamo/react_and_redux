@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { MainHeader } from "../../ui-components/header";
 import { CountriesTable } from "./countriesTable";
 import axios from "axios";
 import css from "./style.module.css";
 import { WithLoading } from "../../ui-components/with-loading";
 import TextField from "@mui/material/TextField";
+import { CountriesStats } from "./statistcs";
 
 const baseUrl = "https://restcountries.com/v3.1";
 const apiUrlAll = `${baseUrl}/all`;
@@ -15,12 +16,14 @@ export interface ICountry {
   region: string;
   flags: Array<any>;
   languages: Array<any>;
+  population: number;
 }
 
 export function CountriesPage() {
   const initialState: Array<ICountry> = [];
   const [countries, setCountries] = useState(initialState);
   const [searchValue, setSearchValue] = useState(initialState);
+
   useEffect(() => {
     async function getCountries() {
       try {
@@ -33,6 +36,7 @@ export function CountriesPage() {
               name: c.name.common || c.name.official,
               flags: c.flags,
               languages: c.languages,
+              population: c.population,
             };
           })
         );
@@ -55,6 +59,7 @@ export function CountriesPage() {
             name: c.name.common || c.name.official,
             flags: c.flags,
             languages: c.languages,
+            population: c.population,
           };
         })
       );
@@ -80,7 +85,10 @@ export function CountriesPage() {
         />
       </div>
       <WithLoading isLoading={Boolean(!countries.length)}>
-        <CountriesTable countries={countries} />
+        <>
+          <CountriesStats countries={countries} />
+          <CountriesTable countries={countries} />
+        </>
       </WithLoading>
     </div>
   );

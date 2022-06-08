@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import css from "./style.module.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -16,37 +16,81 @@ export function VacationsPage() {
     "Thailand",
     "Tira",
   ]);
+  const [stateColor, setStateColor] = useState("red");
   const [currentVacation, setCurrentVacation] = useState("");
+  const inputRefValue = useRef<HTMLInputElement>(null);
+  const linkElement = useRef<HTMLAnchorElement>(null);
+  const addVacationHandler = useCallback(
+    (value: string | undefined) => {
+      if (!value) return;
+      setVacations((vacations) => {
+        return [...vacations, value as string];
+      });
+    },
+    [vacations]
+  );
 
-  const addVacationHandler = useCallback(() => {
-    setVacations([...vacations, currentVacation]);
-  }, [currentVacation]);
+  useEffect(() => {
+    // @ts-ignore
+    linkElement.current.innerText = "Google";
+    // @ts-ignore
+    linkElement.current.href = "https://www.google.com";
+    // @ts-ignore
+    linkElement.current.id = "karam";
+  }, []);
 
+  
   return (
     <div className={css.center}>
       <Grid container style={{ marginTop: "30px" }}>
-        <h1> Vacations </h1>
+        <h1>
+          Vacations <a ref={linkElement}> </a>
+        </h1>
         <AppDate date={new Date().getTime()} />
       </Grid>
 
       <Grid container spacing={2}>
         <TextField
-          value={currentVacation}
+          inputRef={inputRefValue}
           id="outlined-basic"
           label="Outlined"
           variant="outlined"
-          onChange={(e: any) => {
-            setCurrentVacation(e.target.value);
-          }}
         />
-        <Button onClick={addVacationHandler} variant="text">
+        <Button
+          onClick={() => {
+            // console.log(inputRefValue.current?.value);
+            addVacationHandler(inputRefValue.current?.value);
+          }}
+          variant="text"
+        >
           Add
         </Button>
       </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            Text only
+          <Typography
+            style={{ color: stateColor }}
+            sx={{ mt: 4, mb: 2 }}
+            variant="h6"
+            component="div"
+            onDoubleClick={() => {
+              const newColor = `rgba(${Math.ceil(
+                Math.random() * 250
+              )},${Math.ceil(Math.random() * 250)},${Math.ceil(
+                Math.random() * 250
+              )},${Math.random()})`;
+              setStateColor(newColor);
+              setStateColor((currentColor) => {
+                const newColor = currentColor.replace("a", "");
+                const arr = newColor.split(",");
+                arr.splice(arr.length - 1, 1);
+                const color = arr.join() + ")";
+                return color;
+              });
+              console.log(`current State before update ${newColor}`);
+            }}
+          >
+            List of Vacations
           </Typography>
           <List dense={true}>
             {vacations.map((currentVacation, index) => {
