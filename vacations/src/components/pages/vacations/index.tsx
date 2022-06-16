@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import css from "./style.module.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -17,10 +17,12 @@ export function VacationsPage() {
     "Tira",
   ]);
   const [currentVacation, setCurrentVacation] = useState("");
-
-  const addVacationHandler = useCallback(() => {
-    setVacations([...vacations, currentVacation]);
-  }, [currentVacation]);
+  const inputValue = useRef<HTMLInputElement>(null)
+  const addVacationHandler = useCallback((value: string | undefined) => {
+    console.log("handler calc")
+    if (!value) return;
+    setVacations([...vacations, value]);
+  }, [vacations]);
 
   return (
     <div className={css.center}>
@@ -31,15 +33,15 @@ export function VacationsPage() {
 
       <Grid container spacing={2}>
         <TextField
-          value={currentVacation}
+          inputRef={inputValue}
           id="outlined-basic"
           label="Outlined"
           variant="outlined"
-          onChange={(e: any) => {
-            setCurrentVacation(e.target.value);
-          }}
+        // onChange={(e: any) => {
+        //   setCurrentVacation(e.target.value);
+        // }}
         />
-        <Button onClick={addVacationHandler} variant="text">
+        <Button onClick={() => { addVacationHandler(inputValue?.current?.value as any) }} variant="text">
           Add
         </Button>
       </Grid>

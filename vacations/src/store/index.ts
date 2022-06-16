@@ -1,5 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 import settingsReducer from './reducers/settingsSlice'
+
+
 
 
 export const store = configureStore({

@@ -5,6 +5,7 @@ import axios from "axios";
 import css from "./style.module.css";
 import { WithLoading } from "../../ui-components/with-loading";
 import TextField from "@mui/material/TextField";
+import CountriesStats from "./statistics";
 
 const baseUrl = "https://restcountries.com/v3.1";
 const apiUrlAll = `${baseUrl}/all`;
@@ -15,6 +16,7 @@ export interface ICountry {
   region: string;
   flags: Array<any>;
   languages: Array<any>;
+  population: number
 }
 
 export function CountriesPage() {
@@ -33,6 +35,7 @@ export function CountriesPage() {
               name: c.name.common || c.name.official,
               flags: c.flags,
               languages: c.languages,
+              population: c.population
             };
           })
         );
@@ -64,6 +67,8 @@ export function CountriesPage() {
     }
   }
 
+  
+  
   return (
     <div className={css.center}>
       <MainHeader text={"Countries"} color={"black"} size={"22px"} />
@@ -80,7 +85,10 @@ export function CountriesPage() {
         />
       </div>
       <WithLoading isLoading={Boolean(!countries.length)}>
-        <CountriesTable countries={countries} />
+        <>
+          <CountriesStats countries={countries}></CountriesStats>
+          <CountriesTable countries={countries} />
+        </>
       </WithLoading>
     </div>
   );

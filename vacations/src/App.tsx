@@ -10,6 +10,7 @@ import ResponsiveAppBar, {
   AppRoute,
   pagesConfig,
 } from "./components/app/appBar";
+import { useAppSelector } from "./store/hooks";
 
 interface IContext {
   isUtc: boolean;
@@ -49,12 +50,12 @@ function App() {
   console.log("global state", globalState);
   // const [isUtc, setisUtc] = useState(true); => reference to local state
   const [dateFormat, setDateFormat] = useState("dd/mm/yy hh:mm:ss");
-
+  const isUtc = useAppSelector(state => state.settings.isUtc)
 
   return (
     <BrowserRouter>
       <DateContext.Provider
-        value={{ isUtc: globalState.isUtc, dateFormat, dispatch }}
+        value={{ isUtc: isUtc, dateFormat, dispatch }}
       >
         <div>
 
