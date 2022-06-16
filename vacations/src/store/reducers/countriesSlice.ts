@@ -51,6 +51,10 @@ function getBuilderCases(builder: ActionReducerMapBuilder<CountriesState>) {
 export const getCountriesApi = createAsyncThunk(
   "get/countries",
   async (id: string) => {
+
+
+
+    
     const response = await axiosApi.get(`/all/${id}`);
     const countries = response.data.map(adaptCountry);
     return countries;

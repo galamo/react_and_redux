@@ -16,6 +16,7 @@ import { CountriesPage } from "../../pages/countries";
 import { VacationsPage } from "../../pages/vacations";
 import { SettingsPage } from "../../pages/settings";
 import { useAppSelector } from "../../../store/hooks";
+import ProductsPage from "../../pages/products";
 
 export const pagesConfig = [
   {
@@ -35,6 +36,12 @@ export const pagesConfig = [
     path: "/settings",
     label: "Settings",
     element: <SettingsPage />,
+  },
+  {
+    key: "products",
+    path: "/products",
+    label: "Products",
+    element: <ProductsPage />,
   },
 
   ,

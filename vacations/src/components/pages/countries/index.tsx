@@ -29,7 +29,7 @@ export function CountriesPage() {
   const [countriesLocal, setCountriesLocal] = useState(initialState);
 
   useEffect(() => {
-    dispatch(getCountriesApi());
+    // dispatch(getCountriesApi());
     return () => {
       console.log("Countries Component Unmounted");
     };
